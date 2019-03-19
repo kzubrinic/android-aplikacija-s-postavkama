@@ -1,5 +1,6 @@
 package hr.unidu.kz.aplikacijaspostavkama;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -9,17 +10,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView slika;
-
+    private EditText tekst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         slika = findViewById(R.id.slika);
+        tekst = findViewById(R.id.tekst);
         primijeniPostavke();
     }
 
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 prikaziPostavke();
                 return true;
             case R.id.druga_stavka:
+                otvoriDrugu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -71,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 7);
     }
 
+    private void otvoriDrugu(){
+        Intent intent = new Intent(MainActivity.this,DrugaActivity.class);
+        startActivity(intent);
+    }
+
     protected void onActivityResult(int reqCode, int resCode, Intent data) {
         super.onActivityResult(reqCode, resCode, data);
         if (reqCode == 7) {
@@ -79,5 +89,29 @@ public class MainActivity extends AppCompatActivity {
                 primijeniPostavke();
             }
         }
+    }
+
+    // Spremanje u spremište aktivnosti MainActivity
+    public void spremiSpremisteAktivnosti(View view) {
+        // 1. Pristupi inicijalnom spremištu postavki aktivnosti
+        SharedPreferences sp = this.getPreferences(Context.MODE_PRIVATE);
+        // 2. Stvori objekt tipa Editor koji omogućuje uređivanje spremišta
+        SharedPreferences.Editor editor = sp.edit();
+        // 3. Zapiši u spremište cijeli broj s ključem "uneseni_broj"
+        editor.putString("tekst", tekst.getText().toString());
+        // 4. Potvrdi promjenu podataka u spremištu
+        editor.commit();
+    }
+
+    // Spremanje u imenovano spremište aplikacije
+    public void spremiImenovanoSpremiste(View view) {
+        // 1. Pristupi inicijalnom spremištu postavki aktivnosti
+        SharedPreferences sp = getSharedPreferences("moje_spremiste",  Context.MODE_PRIVATE);
+        // 2. Stvori objekt tipa Editor koji omogućuje uređivanje spremišta
+        SharedPreferences.Editor editor = sp.edit();
+        // 3. Zapiši u spremište cijeli broj s ključem "uneseni_broj"
+        editor.putString("tekst", tekst.getText().toString());
+        // 4. Potvrdi promjenu podataka u spremištu
+        editor.commit();
     }
 }

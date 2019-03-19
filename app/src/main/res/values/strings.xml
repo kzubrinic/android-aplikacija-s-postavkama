@@ -7,6 +7,8 @@
     <string name="pref_default_naslov_aktivnosti">Aplikacija s postavkama</string>
     <string name="pref_title_lista_boja">Boje pozadine</string>
     <string name="i1_prva_stavka">Postavke</string>
-    <string name="i1_druga_stavka_izbornika">Druga akcija</string>
+    <string name="i1_druga_stavka_izbornika">Druga aktivnost</string>
     <string name="smiley">Spavač</string>
+    <string name="button">Spremi postavke aktivnosti</string>
+    <string name="button2">Spremi u imenovano spremište</string>
 </resources>
